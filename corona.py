@@ -1,4 +1,5 @@
 from bs4 import BeautifulSoup
+from flask import Flask
 from selenium.webdriver.chrome.options import Options
 from selenium import webdriver
 import re
@@ -39,4 +40,19 @@ class CoronaAPI(object):
         return formatted_confirmed_cases
 
 
-print(CoronaAPI().confirmed_cases)
+app = Flask(__name__)
+
+
+@app.route('/')
+def index():
+    return CoronaAPI().confirmed_cases
+
+
+@app.route('/<string:country>')
+def corona_filtered(country):
+    return CoronaAPI(country).confirmed_cases
+
+
+if __name__ == '__main__':
+    app.secret_key = 'secret123'
+    app.run(debug=True, host='0.0.0.0')
