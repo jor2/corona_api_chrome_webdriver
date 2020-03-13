@@ -43,12 +43,12 @@ class CoronaAPI(object):
 app = Flask(__name__)
 
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def index():
     return CoronaAPI().confirmed_cases
 
 
-@app.route('/<string:country>')
+@app.route('/<string:country>', methods=['GET', 'POST'])
 def corona_filtered(country):
     return CoronaAPI(country).confirmed_cases
 
