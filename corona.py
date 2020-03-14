@@ -36,7 +36,12 @@ class CoronaAPI(object):
     def confirmed_cases(self):
         raw_result = [result for result in self.all_country_statistics if self.country in result.text][0].text
         confirmed_cases = re.search(r'\n(.*?)\xa0', raw_result).group(1)
-        formatted_confirmed_cases = f'{self.country}\nConfirmed Cases: {confirmed_cases}'
+        confirmed_cases = ''.join(confirmed_cases.split(','))
+        return int(confirmed_cases)
+
+    @property
+    def confirmed_cases_formatted(self):
+        formatted_confirmed_cases = f'{self.country}\nConfirmed Cases: {self.confirmed_cases}'
         return formatted_confirmed_cases
 
 
@@ -54,4 +59,5 @@ def corona_filtered(country):
 
 
 if __name__ == '__main__':
-    app.run(debug=True, use_reloader=True)
+    CoronaAPI().confirmed_cases
+    # app.run(debug=True, use_reloader=True)
