@@ -50,14 +50,14 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    return CoronaAPI().confirmed_cases
+    return CoronaAPI().confirmed_cases_formatted
 
 
 @app.route('/<string:country>', methods=['GET', 'POST'])
 def corona_filtered(country):
-    return CoronaAPI(country).confirmed_cases
+    return CoronaAPI(country).confirmed_cases_formatted
 
 
 if __name__ == '__main__':
-    CoronaAPI().confirmed_cases
+    print(CoronaAPI().confirmed_cases_formatted)
     # app.run(debug=True, use_reloader=True)
