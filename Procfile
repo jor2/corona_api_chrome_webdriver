@@ -1,1 +1,0 @@
-web: python3 corona.py --log-file=-
